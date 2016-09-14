@@ -25,14 +25,18 @@
                 var suggestionItem = document.createElement("li");
                 suggestionList.appendChild(suggestionItem);
                 suggestionItem.innerHTML = countries[i];
-                suggestionItem.addEventListener("mouseenter", function(e){
+
+                function hoverOver(e) {
                     e.target.style.backgroundColor = "lightgrey";
                     e.target.style.color = "blue";
-                });
-                suggestionItem.addEventListener("mouseleave", function(e){
+                }
+                function hoverOut(e){
                     e.target.style.backgroundColor = "";
                     e.target.style.color = "";
-                });
+                }
+
+                suggestionItem.addEventListener("mouseenter", hoverOver);
+                suggestionItem.addEventListener("mouseleave", hoverOut);
             }
         }
         if (suggestionList.innerHTML === ""){
@@ -53,11 +57,6 @@
         });
     }
 
-    // document.body.addEventListener("click", function(e){
-    //     if (e.target.id !== "suggestionBox") {
-    //         suggestionsBox.style.display = "none";
-    //     }
-    // });
 
 
 })();
