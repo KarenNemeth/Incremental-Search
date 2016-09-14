@@ -5,7 +5,7 @@
     <style>
 
     #searchArea {
-        width: 15em;
+        width: 200px;
         height: auto;
         margin: 1em;
     }
@@ -20,19 +20,19 @@
         overflow: hidden;
         position: relative;
         border: 2px solid black;
-        max-height: 5em;
-        /*display: none;*/
+        max-height: 6em;
+        display: none;
+        width: 100%;
     }
 
     #suggestionList {
         list-style: none;
-        padding-left: 2;
-        padding-top: 1px;
-        margin-top: 1px;
+        margin: 0;
+        padding: 0;
     }
 
     li {
-        margin: 1px;
+        padding: 3px;
         width: 100%;
     }
 
@@ -43,7 +43,6 @@
         <textarea id="input" placeholder=" Search for a country!"></textarea>
         <div id="suggestionBox">
             <ul id="suggestionList">
-                <li>Hi</li>
             </ul>
         </div>
     </div>

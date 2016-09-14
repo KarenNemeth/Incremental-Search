@@ -25,7 +25,39 @@
                 var suggestionItem = document.createElement("li");
                 suggestionList.appendChild(suggestionItem);
                 suggestionItem.innerHTML = countries[i];
+                suggestionItem.addEventListener("mouseenter", function(e){
+                    e.target.style.backgroundColor = "lightgrey";
+                    e.target.style.color = "blue";
+                });
+                suggestionItem.addEventListener("mouseleave", function(e){
+                    e.target.style.backgroundColor = "";
+                    e.target.style.color = "";
+                });
             }
         }
+        if (suggestionList.innerHTML === ""){
+            suggestionItem = document.createElement("li");
+            suggestionList.appendChild(suggestionItem);
+            suggestionItem.innerHTML = "No results";
+        }
+
+        document.body.addEventListener("click", function(e){
+            if (e.target !== input) {
+                suggestionsBox.style.display = "none";
+            }
+            //add click on list item itself
+        }, true);
+
+        input.addEventListener("focus", function(){
+            suggestionsBox.style.display = "block";
+        });
     }
+
+    // document.body.addEventListener("click", function(e){
+    //     if (e.target.id !== "suggestionBox") {
+    //         suggestionsBox.style.display = "none";
+    //     }
+    // });
+
+
 })();
