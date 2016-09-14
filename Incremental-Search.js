@@ -4,6 +4,9 @@
     var input = document.getElementById("input");
     var suggestionsBox = document.getElementById("suggestionBox");
     var suggestionList = document.getElementById("suggestionList");
+    var k = -1;
+    var items = suggestionList.children;
+    var y = 0;
 
     input.addEventListener("input", check);
 
@@ -20,41 +23,93 @@
         for (var i = 0; i < countries.length; i++){
             var countriesLowerCase = [ ];
             countriesLowerCase[i] = countries[i].toLowerCase();
-            if (countriesLowerCase[i].substring(0, input.value.length) == input.value) {
-                console.log(countries[i]);
+            var inputLower = input.value.toLowerCase();
+            if (countriesLowerCase[i].substring(0, input.value.length) == inputLower) {
+                console.log(countries[i]+ "hello");
                 var suggestionItem = document.createElement("li");
                 suggestionList.appendChild(suggestionItem);
                 suggestionItem.innerHTML = countries[i];
 
+                suggestionItem.addEventListener("mouseenter", hoverOver);
+                suggestionItem.addEventListener("mouseleave", hoverOut);
                 function hoverOver(e) {
                     e.target.style.backgroundColor = "lightgrey";
                     e.target.style.color = "blue";
+                    e.target.addEventListener("click", function(){
+                        input.value = e.target.innerHTML;
+                        suggestionList.innerHTML = e.target.innerHTML;
+                    });
                 }
                 function hoverOut(e){
                     e.target.style.backgroundColor = "";
                     e.target.style.color = "";
                 }
-
-                suggestionItem.addEventListener("mouseenter", hoverOver);
-                suggestionItem.addEventListener("mouseleave", hoverOut);
             }
         }
+
         if (suggestionList.innerHTML === ""){
             suggestionItem = document.createElement("li");
             suggestionList.appendChild(suggestionItem);
             suggestionItem.innerHTML = "No results";
         }
-
         document.body.addEventListener("click", function(e){
             if (e.target !== input) {
                 suggestionsBox.style.display = "none";
             }
             //add click on list item itself
         }, true);
-
         input.addEventListener("focus", function(){
             suggestionsBox.style.display = "block";
         });
+    }
+
+    document.addEventListener("keydown", keySelect);
+    function keySelect(e){
+        var offset = (suggestionList.offsetHeight - suggestionsBox.offsetHeight);
+        switch (e.which) {
+        case 40:
+            if (k < (items.length-1)) {
+                k++;
+            }
+            if (k < items.length) {
+                console.log("you pressed down!");
+                items[k].style.backgroundColor = "lightgrey";
+                items[k].style.color = "blue";
+                if (k > 0){
+                    items[k-1].style.backgroundColor = "";
+                    items[k-1].style.color = "";
+                }
+            }
+            if ((k > 3) && (y > -offset)) {
+                y -= 24;
+                suggestionList.style.transform = "translateY("+y+"px)";
+            }
+            e.preventDefault();
+            break;
+        case 38:
+            if (k > 0){
+                items[k].style.color = "";
+                items[k].style.backgroundColor = "";
+                k--;
+                items[k].style.backgroundColor = "lightgrey";
+                items[k].style.color = "blue";
+            }
+            if (items[k].offsetTop < -y) {
+                console.log("yay");
+                y += 24;
+                suggestionList.style.transform = "translateY("+y+"px)";
+            }
+            e.preventDefault();
+            break;
+        case 13:
+            if (k > -1) {
+                input.value = items[k].innerHTML;
+                suggestionList.innerHTML = items[k].innerHTML;
+                k = -1;
+            }
+            e.preventDefault();
+            break;
+        }
     }
 
 
