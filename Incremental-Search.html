@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <style>
+
+    #searchArea {
+        width: 15em;
+        height: auto;
+        margin: 1em;
+    }
+    #input {
+        width: 100%;
+        height: 2.5em;
+        border: 1px solid black;
+    }
+
+    #suggestionBox {
+        height: auto;
+        overflow: hidden;
+        position: relative;
+        border: 2px solid black;
+        max-height: 5em;
+        /*display: none;*/
+    }
+
+    #suggestionList {
+        list-style: none;
+        padding-left: 2;
+        padding-top: 1px;
+        margin-top: 1px;
+    }
+
+    li {
+        margin: 1px;
+        width: 100%;
+    }
+
+    </style>
+</head>
+<body>
+    <div id="searchArea">
+        <textarea id="input" placeholder=" Search for a country!"></textarea>
+        <div id="suggestionBox">
+            <ul id="suggestionList">
+                <li>Hi</li>
+            </ul>
+        </div>
+    </div>
+<script src="incremental-search.js"></script>
+</body>
+</html>
